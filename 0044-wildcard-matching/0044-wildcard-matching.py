@@ -17,11 +17,12 @@ class Solution:
                 return True
 
             if dp[idxS][idxP] != -1:    return dp[idxS][idxP]
-
+            # if positional characters are equal or "?" char we move ahead
             if s[idxS] == p[idxP] or p[idxP] == "?":
                 dp[idxS][idxP] =  helper(idxS-1 , idxP-1)
                 return dp[idxS][idxP]
-
+            # if positional char is a wildcard, we either use it and move ahead
+            # or we do not use it and move ahead
             if p[idxP] == "*":
                 dp[idxS][idxP] = helper(idxS-1 , idxP) or helper(idxS , idxP-1)
                 return dp[idxS][idxP]
