@@ -15,6 +15,9 @@ class Solution:
     and seperate new from old using a dummy node
     """
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
+        if not head:
+            return head
+            
         temp = head
         dummy = Node(0)
         newtemp = dummy
