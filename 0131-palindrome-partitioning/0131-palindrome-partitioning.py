@@ -12,7 +12,7 @@ class Solution:
             if sIdx == N:
                 res.append(part[:])
                 return
-
+            #backtrac through all lengths of substrs
             for i in range(sIdx , N):
                 if isPalindrome(sIdx , i):
                     part.append(s[sIdx:i+1])
