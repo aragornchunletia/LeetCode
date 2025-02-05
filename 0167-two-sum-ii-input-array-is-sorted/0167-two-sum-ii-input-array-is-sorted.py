@@ -1,23 +1,16 @@
 class Solution:
-    def twoSum(self, numbers: List[int], target: int) -> List[int]:
-
-        def search(val):
-            start , end = 0 , len(numbers)-1
-            while start <= end:
-                mid = (start+end)//2
-                if numbers[mid] == val:
-                    return mid
-                elif numbers[mid] < val:
-                    start = mid+1
-                else:
-                    end = mid -1
-            return -1
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
         
-        targetList = [target - num for num in numbers]
+        left , right = 0 , len(nums) -1 
 
-        for i , num in enumerate(targetList):
-            res = search(num)
-            if res > -1 and res != i:
-                return sorted([i+1,res+1])
+        while left <= right:
+            if target == nums[left] + nums[right]:
+                return [left+1 , right+1]
 
+            elif nums[left] + nums[right] > target:
+                right -= 1
 
+            else:
+                left += 1
+
+             
