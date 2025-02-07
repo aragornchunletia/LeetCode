@@ -10,7 +10,6 @@ class Solution:
             if i >= len(nums):
                 return 0
 
-            res = 0
             add = helper(i+1 , expr + nums[i])
             sub = helper(i+1 , expr - nums[i])
 
