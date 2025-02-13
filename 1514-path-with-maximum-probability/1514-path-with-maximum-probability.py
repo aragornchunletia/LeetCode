@@ -1,37 +1,27 @@
-#max sum traversal
-from heapq import heapify , heappush , heappop
 class Solution:
     def maxProbability(self, n: int, edges: List[List[int]], succProb: List[float], start_node: int, end_node: int) -> float:
-        adj = {i : [] for i in range(n)}
-        for idx,(a,b) in enumerate(edges):
-            adj[a].append((succProb[idx] , b))
-            adj[b].append((succProb[idx] , a))
+        adj = defaultdict(list)
 
-        maxHeap = [(-p,n) for (p , n) in adj[start_node]]
-        heapify(maxHeap)
-        maxP = 0
-        visited = set()
+        for (a,b) , prob in zip(edges , succProb):
+            adj[a].append((b,prob))
+            adj[b].append((a,prob))
+
+        maxP = [0.0] * n
+        maxHeap = [(-1 , start_node)]
+        maxP[start_node] = 1.0
         while maxHeap:
-            prob , node = heappop(maxHeap)
-            visited.add(node)
+            probab , node = heappop(maxHeap)
+            probab *= -1
             if node == end_node:
-                maxP = max(maxP , -prob)
+                return probab
 
-            for p,n in adj[node]:
-                if n not in visited:
-                    heappush(maxHeap , (prob*p , n))
-
-        return maxP if maxP else 1e-5
-
-
+            for next_node , p in adj[node]:
+                    newProb = p*probab
+                    if newProb > maxP[next_node]:
+                        maxP[next_node] = newProb
+                        heappush(maxHeap,(-newProb , next_node))
 
 
+        return 1e-5
 
-        
-
-        
-
-        
-
-
-        
+                
